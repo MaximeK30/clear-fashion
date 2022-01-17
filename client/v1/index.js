@@ -69,16 +69,29 @@ console.log(length_marketplace);
 
 
 
-
-
-
-
-
-
 // 🎯 TODO: Brands name
 // 1. Create a variable and assign it the list of brands name only
 // 2. Log the variable
 // 3. Log how many brands we have
+
+var brands=[];
+for ( var i=0 ; i< length_marketplace;i++){
+
+  if (brands.includes(marketplace[i]["brand"]))
+  {
+    continue;
+  }
+  else
+  {
+    brands.push(marketplace[i]["brand"]);
+  }
+  
+   
+}
+
+console.table(brands);
+console.log(brands.length);
+
 
 
 // 🎯 TODO: Sort by price
