@@ -164,7 +164,12 @@ marketplace.forEach(function(obj){
 // 1. Determine the average basket of the marketplace
 // 2. Log the average
 
-
+var basketprice=0;
+var value=marketplace.forEach(function(obj){
+  basketprice += obj.price;})
+var average= basketprice / length_marketplace;
+console.log("Average Basket:");
+  console.log(average);
 
 
 
