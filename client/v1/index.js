@@ -33,6 +33,25 @@ console.log(MY_FAVORITE_BRANDS[0]);
 // 2. Log the variable
 
 
+const cheapest_tshirt = [{
+  'name': 'Hopaal',
+  'url': 'https://hopaal.com/collections/t-shirts-homme/products/classique-noir-t-shirt-homme?variant=39629285949624'
+}, {
+  'name': 'Loom',
+  'url': 'https://www.loom.fr/products/le-t-shirt'
+}, {
+  'name': 'ADRESSE',
+  'url': 'https://adresse.paris/t-shirts-et-polos/3983-t-shirt-ranelagh-1300000259194.html'
+}];
+
+console.table(cheapest_tshirt);
+console.log(cheapest_tshirt[0]);
+
+
+
+
+
+
 
 
 
