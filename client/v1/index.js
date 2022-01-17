@@ -50,11 +50,6 @@ console.log(cheapest_tshirt[0]);
 
 
 
-
-
-
-
-
 /**
  * 👕
  * Easy 😁?
@@ -67,6 +62,17 @@ console.log(cheapest_tshirt[0]);
 // 🎯 TODO: Number of products
 // 1. Create a variable and assign it the number of products
 // 2. Log the variable
+
+var length_marketplace=marketplace.length;
+console.table(marketplace);
+console.log(length_marketplace);
+
+
+
+
+
+
+
 
 
 // 🎯 TODO: Brands name
