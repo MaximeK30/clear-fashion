@@ -86,8 +86,15 @@ for ( var i=0 ; i< length_marketplace;i++){
     brands.push(marketplace[i]["brand"]);
   }
   
-   
 }
+
+
+// Solution avancée
+// var brandNames=[]
+// marketplace.forEach(obj=> brandNames.push(obj.brand))
+// marketplace.forEach(function(entry){ brandNames.push(entrey.brand);}
+// const unique BrandNames = new Set(brandNames);
+
 
 console.table(brands);
 console.log(brands.length);
@@ -137,8 +144,18 @@ console.table(sort_bydate);
 // 2. Log the list
 
 
+function InRange(marketplace){
+  var intherange=[]
 
+}
+var intherange=[]
+marketplace.forEach(function(obj){
+   if(obj.price >= 50 && obj.price<=100)
+   {
+      intherange.push(obj);
+   } })
 
+   console.table(intherange);
 
 
 
