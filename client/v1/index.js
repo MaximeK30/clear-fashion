@@ -197,6 +197,24 @@ console.log("Average Basket:");
 // 3. Log the number of products by brands
 
 
+var total_brands = {};
+for (i=0;i<brands.length;i++){
+  total_brands[brands[i]]=[];
+}
+
+marketplace.forEach(function(obj){
+
+  total_brands[obj.brand].push(obj);
+
+
+});
+
+console.table(total_brands);
+
+console.log( brands[0] + " : "+ total_brands[brands[0]].length);
+
+
+
 // 🎯 TODO: Sort by price for each brand
 // 1. For each brand, sort the products by price, from highest to lowest
 // 2. Log the sort
