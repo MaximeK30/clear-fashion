@@ -211,13 +211,19 @@ marketplace.forEach(function(obj){
 
 console.table(total_brands);
 
-console.log( brands[0] + " : "+ total_brands[brands[0]].length);
+console.log( brands[1] + " : "+ total_brands[brands[1]].length);
 
 
 
 // 🎯 TODO: Sort by price for each brand
 // 1. For each brand, sort the products by price, from highest to lowest
 // 2. Log the sort
+
+
+
+
+
+
 
 
 // 🎯 TODO: Sort by date for each brand
