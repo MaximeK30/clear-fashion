@@ -197,7 +197,7 @@ console.log("Average Basket:");
 // 3. Log the number of products by brands
 
 
-var total_brands = {};
+const total_brands = {};
 for (i=0;i<brands.length;i++){
   total_brands[brands[i]]=[];
 }
@@ -205,7 +205,6 @@ for (i=0;i<brands.length;i++){
 marketplace.forEach(function(obj){
 
   total_brands[obj.brand].push(obj);
-
 
 });
 
@@ -219,8 +218,12 @@ console.log( brands[1] + " : "+ total_brands[brands[1]].length);
 // 1. For each brand, sort the products by price, from highest to lowest
 // 2. Log the sort
 
+//sorting=total_brands.forEach(function(a){
+//  console.log(a)
+//});
 
-
+//console.log(sorting);
+//console.table(sorting);
 
 
 
@@ -321,20 +324,83 @@ const COTELE_PARIS = [
 // // 1. Log if we have new products only (true or false)
 // // A new product is a product `released` less than 2 weeks.
 
+ 
+ // COTELE_PARIS.forEach(function(a){
+ //   const today = new Date().toJSON().substring(0,10);
+ //   //const date = new Date (a.date);
+ //   
+ //   if(a.released.substring(5,6) == today.substring(5,6) && )
+ //   {
+ //     if(today.substring(8,9)-a.substring(8,9))
+ //     {
+ //       Console.log(true);
+ //     }
+ //   }
+ //   else if (a.released.substring(5,6) == today.substring(5,6)-1 ){
+ //     if(today.substring(5,6)>=15 && a.released.substring(5,6)>1 && a.released.substring(5,6)<15)
+ //     {
+//
+ //     }
+ //   }
+ //   
+ // })
+ const a='12-10-2010'.split('-').join('/')
+ const b='11-10-2010'.split('-').join('/')
+
+ console.log(a);
+
+ const date1 = new Date(a);
+ const date2 = new Date(b);
+
+
+ const diffTime = Math.abs(date2 - date1);
+ const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));  
+
+console.log(diffDays);
+
+
+
 
 // 🎯 TODO: Reasonable price
 // // 1. Log if coteleparis is a reasonable price shop (true or false)
 // // A reasonable price if all the products are less than 100€
 
+COTELE_PARIS.some(function(a){ 
+  if(a.price>100){
+    console.log(false);
+    return false;
+  }
+});
 
 // 🎯 TODO: Find a specific product
 // 1. Find the product with the uuid `b56c6d88-749a-5b4c-b571-e5b5c6483131`
 // 2. Log the product
-
+COTELE_PARIS.forEach(function(a){ 
+  if(a.uuid=='b56c6d88-749a-5b4c-b571-e5b5c6483131')
+  {
+    console.log(a);
+  }
+ 
+});
 
 // 🎯 TODO: Delete a specific product
 // 1. Delete the product with the uuid `b56c6d88-749a-5b4c-b571-e5b5c6483131`
 // 2. Log the new list of product
+
+i=0
+COTELE_PARIS.forEach(function(a){ 
+  
+  if(a.uuid=='b56c6d88-749a-5b4c-b571-e5b5c6483131')
+  {
+    COTELE_PARIS.splice(i,1)
+    console.table(COTELE_PARIS);
+    
+  }
+  i+=1;
+ 
+});
+
+
 
 // 🎯 TODO: Save the favorite product
 let blueJacket = {
@@ -352,6 +418,10 @@ jacket.favorite = true;
 // 1. Log `blueJacket` and `jacket` variables
 // 2. What do you notice?
 
+console.log(blueJacket);
+
+console.log(jacket);
+
 blueJacket = {
   'link': 'https://coteleparis.com/collections/tous-les-produits-cotele/products/la-veste-bleu-roi',
   'price': 110,
@@ -360,9 +430,12 @@ blueJacket = {
 
 // 3. Update `jacket` property with `favorite` to true WITHOUT changing blueJacket properties
 
+const jacket1 = Object.assign({}, blueJacket);
+jacket1.favorite = true;
 
+console.log(blueJacket);
 
-
+console.log(jacket1);
 
 /**
  * 🎬
