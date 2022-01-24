@@ -225,6 +225,23 @@ console.log( brands[1] + " : "+ total_brands[brands[1]].length);
 //console.log(sorting);
 //console.table(sorting);
 
+total_brands[brands[0]]=total_brands[brands[0]].sort(function(a,b){
+  return b.price - a.price;
+});
+total_brands[brands[1]]=total_brands[brands[1]].sort(function(a,b){
+  return b.price - a.price;
+});total_brands[brands[2]]=total_brands[brands[2]].sort(function(a,b){
+  return b.price - a.price;
+});total_brands[brands[3]]=total_brands[brands[3]].sort(function(a,b){
+  return b.price - a.price;
+});
+total_brands[brands[4]]=total_brands[brands[4]].sort(function(a,b){
+  return b.price - a.price;
+});
+
+console.table(total_brands);
+
+
 
 
 
@@ -435,7 +452,7 @@ jacket1.favorite = true;
 
 console.log(blueJacket);
 
-console.log(jacket1);
+console.log(marketplace.jacket1);
 
 /**
  * 🎬
@@ -446,3 +463,4 @@ console.log(jacket1);
 // 🎯 TODO: Save in localStorage
 // 1. Save MY_FAVORITE_BRANDS in the localStorage
 // 2. log the localStorage
+

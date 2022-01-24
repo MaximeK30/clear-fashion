@@ -111,9 +111,24 @@ const render = (products, pagination) => {
  * @type {[type]}
  */
 selectShow.addEventListener('change', event => {
-  fetchProducts(currentPagination.currentPage, parseInt(event.target.value))
+  fetchProducts(pageCount.currentPage, parseInt(event.target.value))
     .then(setCurrentProducts)
     .then(() => render(currentProducts, currentPagination));
+});
+
+document.addEventListener('DOMContentLoaded', () =>
+  fetchProducts()
+    .then(setCurrentProducts)
+    .then(() => render(currentProducts, currentPagination))
+);
+
+/**
+ *  Feature 1 - Browse pages
+ */
+
+selectPage.addEventListener('change', event =>{fetchProducts(parseInt(event.target.value), parseInt(selectShow.value))
+  .then(setCurrentProducts)
+  .then(() => render(currentProducts, currentPagination));
 });
 
 document.addEventListener('DOMContentLoaded', () =>
