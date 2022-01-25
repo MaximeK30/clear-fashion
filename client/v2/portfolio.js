@@ -97,20 +97,43 @@ const renderIndicators = pagination => {
 
   spanNbProducts.innerHTML = count;
 };
+
+
+
+const APBRAND = async (page = 1, size = -1) => {
+  try {
+    const response = await fetch(
+      `https://clear-fashion-api.vercel.app?page=${page}&size=${size}`
+    );
+    const body = await response.json();
+
+    if (body.success !== true) {
+      console.error(body);
+      return {currentProducts, currentPagination};
+    }
+    console.log(body.data.result);
+    return body.data.result;
+  } catch (error) {
+    console.error(error);
+    return {currentProducts, currentPagination};
+  }
+};
+
 /**
  * Render page selector
  * @param  {Object} brand
  */
  const renderBrands = brand => {
   //const {currentPage, pageCount} = pagination;
-  const brands = APBRAND(1,-1);
+  var brands = APBRAND;
+  console.log(brands);
   const options = Array.from(
-    {'length': brand.result.length},
-    (value, index) => `<option value="${index + 1}">${index + 1}</option>`
+    {'length': brands.length},
+    (value, index) => `<option value="${value}">${value}</option>`
   ).join('');
 
   selectBrand.innerHTML = options;
-  selectBrand.selectedIndex = 2 - 1;
+  //selectBrand.selectedIndex = 2 - 1;
 };
 
 const render = (products, pagination) => {
@@ -160,24 +183,7 @@ document.addEventListener('DOMContentLoaded', () =>
  *  Feature 2 - Filter by brands
  */
 
- const APBRAND = async (page = 1, size = -1) => {
-  try {
-    const response = await fetch(
-      `https://clear-fashion-api.vercel.app?page=${page}&size=${size}`
-    );
-    const body = await response.json();
-
-    if (body.success !== true) {
-      console.error(body);
-      return {currentProducts, currentPagination};
-    }
-    console.log(body.data.result);
-    return body.data.result;
-  } catch (error) {
-    console.error(error);
-    return {currentProducts, currentPagination};
-  }
-};
+ 
 
 
 
