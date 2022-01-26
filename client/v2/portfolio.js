@@ -143,7 +143,29 @@ const renderbis = ( products,pagination,brandSelected)=>
     }
     
   }
+
+  var total_brands = {};
+for (var i=0;i<products.length;i++)
+{
+  total_brands[products[i].brand]=[];
+}
+
+for (var i=0; i<products.length; i++)
+{
+  total_brands[products[i].brand].push(products[i])
+}
+
+if (brandSelected =="All brands")
+{
   renderProducts(products);
+}
+else{
+  renderProducts(total_brands[brandSelected])
+}
+
+
+
+  
   renderPagination(pagination);
   renderIndicators(pagination);
   renderBrands(combobrand,brandSelected)
@@ -197,7 +219,12 @@ document.addEventListener('DOMContentLoaded', () =>
 
 
  
-
+ selectBrand.addEventListener('change', event => {
+  fetchProducts(parseInt(selectPage.value), parseInt(selectShow.value))
+    .then(setCurrentProducts)
+    .then(() => renderbis(currentProducts, currentPagination,event.target.value));
+    
+});
 
 
 
