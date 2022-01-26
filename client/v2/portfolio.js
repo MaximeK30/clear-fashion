@@ -143,6 +143,7 @@ const renderbis = ( products,pagination,brandSelected)=>
     }
     
   }
+ //combobrand.sort();  sort a partir de index 1 à faire apres 
 
   var total_brands = {};
 for (var i=0;i<products.length;i++)
@@ -162,14 +163,9 @@ if (brandSelected =="All brands")
 else{
   renderProducts(total_brands[brandSelected])
 }
-
-
-
-  
   renderPagination(pagination);
   renderIndicators(pagination);
   renderBrands(combobrand,brandSelected)
-
 
 }
 
