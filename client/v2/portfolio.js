@@ -108,7 +108,7 @@ const renderIndicators = pagination => {
  * @param  {Object} brandSelected
  * 
  */
- const renderBrands = brand => {
+ const renderBrands = (brand,brandSelected) => {
   //const {currentPage, pageCount} = pagination;
   const options = Array.from(
     brand,
@@ -116,7 +116,7 @@ const renderIndicators = pagination => {
   ).join('');
 
   selectBrand.innerHTML = options;
-  selectBrands.selectedIndex = brand.indexOf(brandSelected);
+  selectBrand.selectedIndex = brand.indexOf(brandSelected);
 };
 
 const render = (products, pagination) => {
