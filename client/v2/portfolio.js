@@ -110,15 +110,12 @@ const renderIndicators = pagination => {
  */
  const renderBrands = brand => {
   //const {currentPage, pageCount} = pagination;
-  var brands = APBRAND;
-  console.log(brands);
   const options = Array.from(
     brand,
     (brand) => `<option value="${brand}">${brand}</option>`
   ).join('');
 
   selectBrand.innerHTML = options;
-  console.log(brandSelected);
   selectBrands.selectedIndex = brand.indexOf(brandSelected);
 };
 
@@ -126,9 +123,38 @@ const render = (products, pagination) => {
   renderProducts(products);
   renderPagination(pagination);
   renderIndicators(pagination);
-  renderBrands(brand);
+  
 
 };
+
+//Creation of a new render with Brands 
+const renderbis = ( products,pagination,brandSelected)=>
+{
+  let combobrand=['All brands']
+  for ( var i=0 ; i< products.length;i++){
+
+    if (combobrand.includes(products[i].brand))
+    {
+      continue;
+    }
+    else
+    {
+      combobrand.push(products[i].brand);
+    }
+    
+  }
+  renderProducts(products);
+  renderPagination(pagination);
+  renderIndicators(pagination);
+  renderBrands(combobrand,brandSelected)
+
+
+}
+
+
+
+
+
 
 /**
  * Declaration of all Listeners
@@ -141,13 +167,13 @@ const render = (products, pagination) => {
 selectShow.addEventListener('change', event => {
   fetchProducts(currentPagination.currentPage, parseInt(event.target.value))
     .then(setCurrentProducts)
-    .then(() => render(currentProducts, currentPagination));
+    .then(() => renderbis(currentProducts, currentPagination,"All brands"));
 });
 
 document.addEventListener('DOMContentLoaded', () =>
   fetchProducts()
     .then(setCurrentProducts)
-    .then(() => render(currentProducts, currentPagination))
+    .then(() => renderbis(currentProducts, currentPagination,'All brands'))
 );
 
 /**
@@ -156,18 +182,19 @@ document.addEventListener('DOMContentLoaded', () =>
 
 selectPage.addEventListener('change', event =>{fetchProducts(parseInt(event.target.value), parseInt(selectShow.value))
   .then(setCurrentProducts)
-  .then(() => render(currentProducts, currentPagination));
+  .then(() => renderbis(currentProducts, currentPagination,'All brands'));
 });
 
 document.addEventListener('DOMContentLoaded', () =>
   fetchProducts()
     .then(setCurrentProducts)
-    .then(() => render(currentProducts, currentPagination))
+    .then(() => renderbis(currentProducts, currentPagination,'All brands'))
 );
 
 /**
  *  Feature 2 - Filter by brands
  */
+
 
  
 
