@@ -13,6 +13,7 @@ const sectionProducts = document.querySelector('#products');
 const spanNbProducts = document.querySelector('#nbProducts');
 const selectBrand = document.querySelector('#brand-select');
 
+
 /**
  * Set global value
  * @param {Array} result - products to display
@@ -213,8 +214,6 @@ document.addEventListener('DOMContentLoaded', () =>
  *  Feature 2 - Filter by brands
  */
 
-
- 
  selectBrand.addEventListener('change', event => {
   fetchProducts(parseInt(selectPage.value), parseInt(selectShow.value))
     .then(setCurrentProducts)
@@ -224,11 +223,30 @@ document.addEventListener('DOMContentLoaded', () =>
 
 
 
+/**
+ *  Feature 2 - Filter by recent products
+ */
 
 
+// First step create the button for "by recently released" / 14 days
 
+function recentrelease (products)
+{
+  const ArraynewProducts=[];
+  for ( var i =0; i <products.length;i++)
+  {
+    if((Math.abs(new Date().getTime() - new Date(products[i].released).getTime())/(24*60*60*1000) < 14))
+    {
+      ArraynewProducts.push(products[i]);
+    }
+  }
+  renderProducts(ArraynewProducts);
+  return ArraynewProducts;
+  
 
+}
 
+selectRR.onclick=recentrelease(products)
 
 
 
