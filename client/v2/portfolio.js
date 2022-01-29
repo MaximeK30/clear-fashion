@@ -11,6 +11,7 @@ const selectShow = document.querySelector('#show-select');
 const selectPage = document.querySelector('#page-select');
 const sectionProducts = document.querySelector('#products');
 const spanNbProducts = document.querySelector('#nbProducts');
+const spanNbNewProducts = document.querySelector('#nbnewProducts');
 const selectBrand = document.querySelector('#brand-select');
 const selectSort = document.querySelector('#sort-select');
 
@@ -100,6 +101,11 @@ const renderIndicators = pagination => {
   spanNbProducts.innerHTML = count;
 };
 
+const renderNewIndicators = pagination => {
+  const count = pagination.length;
+
+  spanNbNewProducts.innerHTML = count;
+};
 
 
 
@@ -141,8 +147,6 @@ const renderbis = ( products,pagination,brandSelected)=>
     products=new functionreasonable(products)
   }
 
-
-
   let combobrand=['All brands']
   for ( var i=0 ; i< products.length;i++){
 
@@ -179,6 +183,7 @@ if (brandSelected !="All brands")
   renderPagination(pagination);
   renderProducts(products)
   renderIndicators(pagination);
+  renderNewIndicators(functionreasonable(products));
   renderBrands(combobrand,brandSelected);
 
 }
@@ -400,7 +405,13 @@ selectSort.addEventListener('change', event => {
  *  Feature 8 - Number of products indicator
  */
 
-  
+  //DEJA FAIT ?
+
+
+/**
+ *  Feature 9 - Number of recent products indicator
+ */
+
 
 
 
