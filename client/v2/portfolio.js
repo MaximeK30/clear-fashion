@@ -14,6 +14,11 @@ const spanNbProducts = document.querySelector('#nbProducts');
 const spanNbNewProducts = document.querySelector('#nbnewProducts');
 const selectBrand = document.querySelector('#brand-select');
 const selectSort = document.querySelector('#sort-select');
+const percentile50 = document.querySelector('#p50');
+const percentile90 = document.querySelector('#p90');
+const percentile95 = document.querySelector('#p95');
+
+
 
 
 /**
@@ -108,6 +113,31 @@ const renderNewIndicators = pagination => {
 };
 
 
+const renderp50 = p50 => {
+  const arrayp50 = sortasc(p50);
+  const countp50 = percentile(arrayp50,0.5);
+  console.log(countp50);
+  percentile50.innerHTML = Math.round(countp50);
+
+};
+const renderp90 = p90 => {
+  const arrayp90 = sortasc(p90);
+  const countp90 = percentile(arrayp90,0.9);
+  console.log(countp90);
+  percentile90.innerHTML = Math.round(countp90);
+
+};
+const renderp95 = p95 => {
+  const arrayp95 = sortasc(p95);
+  const countp95 = percentile(arrayp95,0.95);
+  console.log(countp95);
+  percentile95.innerHTML = Math.round(countp95);
+
+};
+
+
+
+
 
 
 /**
@@ -185,6 +215,9 @@ if (brandSelected !="All brands")
   renderIndicators(pagination);
   renderNewIndicators(functionreasonable(products));
   renderBrands(combobrand,brandSelected);
+  renderp50(products);
+  renderp90(products);
+  renderp95(products);
 
 }
 
@@ -315,7 +348,7 @@ function reasonableprice()
   else button_click_reasonable=false ;
   {
     
-    fetchProducts(parseInt(selectPage.value), parseInt(selectShow.value))
+    fetchProducts(selectPage.value, parseInt(selectShow.value))
     .then(setCurrentProducts)
     .then(() => renderbis(currentProducts, currentPagination,'All brands'));
   }
@@ -412,9 +445,36 @@ selectSort.addEventListener('change', event => {
  *  Feature 9 - Number of recent products indicator
  */
 
+// Done at the begining of the code with the other indicator
 
 
+/**
+ *  Feature 10 - p50, p90 and p95 price value indicator
+ */
+
+//functions 
+
+//npm instal percentile not work
+
+// const percentile = require("percentile");
+//console.log(percentile(80, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
+
+ // From google : 
+//array should be sorted we add the property price 
+function percentile(arr, p) {
+  if (arr.length === 0) return 0;
+  if (p <= 0) return arr[0];
+  if (p >= 1) return arr[arr.length - 1];
+  var index = (arr.length - 1) * p,
+      lower = Math.floor(index),
+      upper = lower + 1,
+      weight = index % 1;
+
+  if (upper >= arr.length) 
+  return arr[lower].price;
+  return arr[lower].price * (1 - weight) + arr[upper].price * weight;
+}
 
 
- 
+// render function above
 
