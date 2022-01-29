@@ -131,6 +131,12 @@ const render = (products, pagination) => {
 //Creation of a new render with Brands 
 const renderbis = ( products,pagination,brandSelected)=>
 {
+  if (button_click_release===true)
+  {
+    products=new functionrelease(products)
+  }
+
+
   let combobrand=['All brands']
   for ( var i=0 ; i< products.length;i++){
 
@@ -147,6 +153,7 @@ const renderbis = ( products,pagination,brandSelected)=>
  //combobrand.sort();  sort a partir de index 1 à faire apres 
 
   var total_brands = {};
+ 
 for (var i=0;i<products.length;i++)
 {
   total_brands[products[i].brand]=[];
@@ -157,16 +164,16 @@ for (var i=0; i<products.length; i++)
   total_brands[products[i].brand].push(products[i])
 }
 
-if (brandSelected =="All brands")
+if (brandSelected !="All brands")
 {
-  renderProducts(products);
+  products=total_brands[brandSelected]
 }
-else{
-  renderProducts(total_brands[brandSelected])
-}
+
+
   renderPagination(pagination);
+  renderProducts(products)
   renderIndicators(pagination);
-  renderBrands(combobrand,brandSelected)
+  renderBrands(combobrand,brandSelected);
 
 }
 
@@ -230,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () =>
 
 // First step create the button for "by recently released" / 14 days
 
-function recentrelease (products)
+function functionrelease (products)
 {
   const ArraynewProducts=[];
   for ( var i =0; i <products.length;i++)
@@ -240,13 +247,53 @@ function recentrelease (products)
       ArraynewProducts.push(products[i]);
     }
   }
-  renderProducts(ArraynewProducts);
+  //renderProducts(ArraynewProducts);
   return ArraynewProducts;
   
 
 }
 
-selectRR.onclick=recentrelease(products)
+var button_click_release=false;
+
+function recentrelease()
+{
+  if(button_click_release==false)
+  {
+    button_click_release=true;
+    
+  }
+  else button_click_release=false ;
+  {
+    
+    fetchProducts(parseInt(selectPage.value), parseInt(selectShow.value))
+    .then(setCurrentProducts)
+    .then(() => renderbis(currentProducts, currentPagination,selectBrand.value));
+  }
+
+}
+
+var button_click_reasonable = true;
+
+function reasonableprice()
+{
+
+  if(button_click_reasonable==false)
+  {
+    button_click_reasonable=true;
+    
+  }
+  else button_click_reasonable=false ;
+  {
+    
+    fetchProducts(parseInt(selectPage.value), parseInt(selectShow.value))
+    .then(setCurrentProducts)
+    .then(() => renderbis(currentProducts, currentPagination,selectBrand.value));
+  }
+
+}
+
+
+
 
 
 
