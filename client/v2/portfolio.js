@@ -363,6 +363,7 @@ function sortdatedesc(products)
 }
 
 selectSort.addEventListener('change', event => { 
+  console.log(event.target.value);
   if (event.target.value=="price-asc")
     {fetchProducts(currentPagination.currentPage, parseInt(selectShow.value))
       .then(setCurrentProducts)
@@ -381,16 +382,16 @@ selectSort.addEventListener('change', event => {
         .then(() => renderbis(sortdateasc(currentProducts), currentPagination,"All brands"));}
 
     else if (event.target.value=="date-desc")
-    {fetchProductsparseInt(currentPagination.currentPage, parseInt(selectShow.value))
-      .then(setCurrentProducts)
-      .then(() => renderbis(sortdatedesc(currentProducts), currentPagination,"All brands"));}
-
-      else if(event.target.value=="by-default")
       {fetchProductsparseInt(currentPagination.currentPage, parseInt(selectShow.value))
         .then(setCurrentProducts)
-        .then(() => renderbis(currentProducts, currentPagination,"All brands"));
+        .then(() => renderbis(sortdatedesc(currentProducts), currentPagination,"All brands"));}
 
-      }
+    else 
+    {fetchProductsparseInt(currentPagination.currentPage, parseInt(selectShow.value))
+      .then(setCurrentProducts)
+      .then(() => renderbis(currentProducts, currentPagination,"All brands"));
+
+    }
 
 
   });
