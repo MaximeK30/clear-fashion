@@ -361,6 +361,7 @@ function sortdatedesc(products)
   return sort_bydate;
 
 }
+//PROBLEME DECROISSANT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 selectSort.addEventListener('change', event => { 
   console.log(event.target.value);
@@ -393,8 +394,14 @@ selectSort.addEventListener('change', event => {
 
     }
 
-
   });
+
+  /**
+ *  Feature 8 - Number of products indicator
+ */
+
+  
+
 
 
 
