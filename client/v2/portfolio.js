@@ -135,6 +135,11 @@ const renderbis = ( products,pagination,brandSelected)=>
   {
     products=new functionrelease(products)
   }
+  if (button_click_reasonable===true)
+  {
+    products=new functionreasonable(products)
+  }
+
 
 
   let combobrand=['All brands']
@@ -267,12 +272,36 @@ function recentrelease()
     
     fetchProducts(parseInt(selectPage.value), parseInt(selectShow.value))
     .then(setCurrentProducts)
-    .then(() => renderbis(currentProducts, currentPagination,selectBrand.value));
+    .then(() => renderbis(currentProducts, currentPagination,'All brands'));
   }
 
 }
 
-var button_click_reasonable = true;
+/**
+ *  Feature  4 - Filter by reasonable price
+ */
+
+function functionreasonable(products)
+{
+
+  var intherange=[]
+  for ( var i =0; i <products.length;i++)
+  {
+   if(products[i].price < 50)
+   {
+      intherange.push(products[i]);
+   }
+  } 
+  return intherange;
+   
+
+
+}
+
+
+
+
+var button_click_reasonable = false;
 
 function reasonableprice()
 {
@@ -287,7 +316,7 @@ function reasonableprice()
     
     fetchProducts(parseInt(selectPage.value), parseInt(selectShow.value))
     .then(setCurrentProducts)
-    .then(() => renderbis(currentProducts, currentPagination,selectBrand.value));
+    .then(() => renderbis(currentProducts, currentPagination,'All brands'));
   }
 
 }
