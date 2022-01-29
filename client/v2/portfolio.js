@@ -138,7 +138,6 @@ const renderp95 = p95 => {
 
 const renderreleasedate = release => {
   release=sortdatedesc(release);
-  console.table(release);
   const last_release_date = release[0].released;
   lastdate.innerHTML=last_release_date;
 };
@@ -430,7 +429,8 @@ selectSort.addEventListener('change', event => {
         .then(() => renderbis(sortdateasc(currentProducts), currentPagination,"All brands"));}
 
     else if (event.target.value=="date-desc")
-      {fetchProductsparseInt(currentPagination.currentPage, parseInt(selectShow.value))
+      {
+        fetchProducts(currentPagination.currentPage, parseInt(selectShow.value))
         .then(setCurrentProducts)
         .then(() => renderbis(sortdatedesc(currentProducts), currentPagination,"All brands"));}
 
