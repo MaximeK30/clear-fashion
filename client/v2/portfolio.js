@@ -12,6 +12,7 @@ const selectPage = document.querySelector('#page-select');
 const sectionProducts = document.querySelector('#products');
 const spanNbProducts = document.querySelector('#nbProducts');
 const selectBrand = document.querySelector('#brand-select');
+const selectSort = document.querySelector('#sort-select');
 
 
 /**
@@ -294,12 +295,7 @@ function functionreasonable(products)
   } 
   return intherange;
    
-
-
 }
-
-
-
 
 var button_click_reasonable = false;
 
@@ -322,7 +318,82 @@ function reasonableprice()
 }
 
 
+/**
+ *  Feature  5 - 6  Sort by price and sort by date 
+ */
 
+//cheapest
+
+function sortasc(products)
+{
+  var sort_byprice=[];
+  sort_byprice= products.sort(function(a,b){
+  return a.price - b.price;
+
+})
+    return sort_byprice;
+};
+
+function sortdesc(products)
+{
+  var sort_byprice=[];
+  sort_byprice= products.sort(function(a,b){
+  return b.price - a.price;
+})
+return sort_byprice;
+};
+
+function sortdateasc(products)
+{
+  var sort_bydate=[]
+  sort_bydate=products.sort(function(a,b){
+    return Date.parse(a.released)-Date.parse(b.released);
+  })
+  return sort_bydate;
+
+}
+function sortdatedesc(products)
+{
+  var sort_bydate=[]
+  sort_bydate=products.sort(function(a,b){
+    return Date.parse(b.released)-Date.parse(a.released);
+  })
+  return sort_bydate;
+
+}
+
+selectSort.addEventListener('change', event => { 
+  if (event.target.value=="price-asc")
+    {fetchProducts(currentPagination.currentPage, parseInt(selectShow.value))
+      .then(setCurrentProducts)
+      .then(() => renderbis(sortasc(currentProducts), currentPagination,"All brands"));
+    } 
+  
+    else if (event.target.value=="price-desc")
+    {fetchProducts(currentPagination.currentPage, parseInt(selectShow.value))
+      .then(setCurrentProducts)
+      .then(() => renderbis(sortdesc(currentProducts), currentPagination,"All brands"));
+    }
+
+    else if (event.target.value=="date-asc")
+      {fetchProducts(currentPagination.currentPage, parseInt(selectShow.value))
+        .then(setCurrentProducts)
+        .then(() => renderbis(sortdateasc(currentProducts), currentPagination,"All brands"));}
+
+    else if (event.target.value=="date-desc")
+    {fetchProductsparseInt(currentPagination.currentPage, parseInt(selectShow.value))
+      .then(setCurrentProducts)
+      .then(() => renderbis(sortdatedesc(currentProducts), currentPagination,"All brands"));}
+
+      else if(event.target.value=="by-default")
+      {fetchProductsparseInt(currentPagination.currentPage, parseInt(selectShow.value))
+        .then(setCurrentProducts)
+        .then(() => renderbis(currentProducts, currentPagination,"All brands"));
+
+      }
+
+
+  });
 
 
 
