@@ -17,6 +17,7 @@ const selectSort = document.querySelector('#sort-select');
 const percentile50 = document.querySelector('#p50');
 const percentile90 = document.querySelector('#p90');
 const percentile95 = document.querySelector('#p95');
+const lastdate=document.querySelector('#lastreleaseddate');
 
 
 
@@ -135,6 +136,13 @@ const renderp95 = p95 => {
 
 };
 
+const renderreleasedate = release => {
+  release=sortdatedesc(release);
+  console.table(release);
+  const last_release_date = release[0].released;
+  lastdate.innerHTML=last_release_date;
+};
+
 
 
 
@@ -218,6 +226,7 @@ if (brandSelected !="All brands")
   renderp50(products);
   renderp90(products);
   renderp95(products);
+  renderreleasedate(products);
 
 }
 
@@ -348,7 +357,7 @@ function reasonableprice()
   else button_click_reasonable=false ;
   {
     
-    fetchProducts(selectPage.value, parseInt(selectShow.value))
+    fetchProducts(parseInt(selectPage.value), parseInt(selectShow.value))
     .then(setCurrentProducts)
     .then(() => renderbis(currentProducts, currentPagination,'All brands'));
   }
@@ -477,4 +486,12 @@ function percentile(arr, p) {
 
 
 // render function above
+
+/**
+ *  Feature 11 - Last released date indicator
+ */
+
+// We retake the function sortdate descand we take the date of the first element
+
+
 
