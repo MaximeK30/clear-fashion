@@ -408,6 +408,7 @@ function sortdatedesc(products)
 
 }
 //PROBLEME DECROISSANT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//resolu
 
 selectSort.addEventListener('change', event => { 
   console.log(event.target.value);
@@ -492,6 +493,32 @@ function percentile(arr, p) {
  */
 
 // We retake the function sortdate descand we take the date of the first element
+//render in the render section
 
+
+/**
+ *  Feature 12 - Open product link
+ */
+// Already done 
+
+/**
+ * Feature 13 - Save as favorite
+ */
+
+ function favourite(uuid)
+ { const articles=[];
+   articles.push(uuid);
+ console.table(articles)}
+
+ var button_click_favourite=false
+ 
+ function favouritearticle()
+ { if (button_click_favourite==false){button_click_favourite=true}
+ else button_click_favourite=false;
+ {
+   fetchProducts(currentPagination.currentPage, parseInt(selectShow.value))
+     .then(setCurrentProducts)
+     .then(() => renderbis(currentProducts, currentPagination,"No brand selected"));
+ };}
 
 
