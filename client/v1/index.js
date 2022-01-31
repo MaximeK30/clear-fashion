@@ -144,6 +144,7 @@ console.table(sort_bydate);
 // 2. Log the list
 
 
+
 function InRange(marketplace){
   var intherange=[]
 
@@ -162,6 +163,10 @@ marketplace.forEach(function(obj){
 
 // 🎯 TODO: Average Basket
 // 1. Determine the average basket of the marketplace
+
+// 🎯 TODO: Average price
+// 1. Determine the average price of the marketplace
+
 // 2. Log the average
 
 var basketprice=0;
