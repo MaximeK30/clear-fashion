@@ -36,35 +36,37 @@ h2
 #indicators {
 
   float: left;                  
-  width: 250px; 
+  width: 300px; 
   line-height: 1.5;
-  padding: 4em 1em;
+  
 
 }
 
 
 
-#options { display: flex; flex-direction: nowrap; column-gap: 2em ; }
-#show { order: 2; }
-#page { order: 1; }
-#filters { order: 3; }
-#brand { order: 4; }
-#sort{ order: 5; }
-#like{ order: 6; }
+
+#options { display: flex; flex-direction: nowrap; column-gap: 1em ; }
+
+#products,div { display: flex; flex-wrap: wrap; column-gap: 1em ; }
 
 #products,h2{
   float:center;
 }
-
 #products {
   float:center;
 }
+
+
 #options{
   background-color: rgb(185, 106, 106);
   background-position: bottom 50px;
   font-weight: bold;
   color: black;
   
+}
+#products,span
+{
+  font-weight: bold;
 }
 
 
