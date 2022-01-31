@@ -8,7 +8,7 @@ head {
 body 
 {
   font-family: "HelveticaNow","Helvetica","sans-serif";
-  background: white;
+  background: White;
   background-position: center;
   color: #555;
   line-height: 1.5;
@@ -35,6 +35,7 @@ h2
 
 #indicators {
 
+  
   float: left;                  
   width: 300px; 
   line-height: 1.5;
@@ -58,15 +59,18 @@ h2
 
 
 #options{
-  background-color: rgb(185, 106, 106);
+  
+  background-color: rgb(161, 190, 197);
   background-position: bottom 50px;
   font-weight: bold;
   color: black;
   
 }
-#products,span
+#products,span,div
 {
   font-weight: bold;
+  
+  
 }
 
 
@@ -96,12 +100,12 @@ a {
 header {
 background-color: white;
 background-image: url("https://img-3.journaldesfemmes.fr/-nieMai9jWQkTL2X3JXZpvaSt-c=/1500x/smart/ede7497c47cf4fa282a5f362d1ae2eab/ccmcms-jdf/21576209.png");
-background-position: center top;
+background-position:top;
 background-repeat: no-repeat;
 background-size: 500px;
-line-height: 2.2;
-padding: 10vw 1em;
-text-align: center;
+line-height: 1;
+padding: 13vw 2em;
+text-align: top;
 }
 header {
 color: black;
