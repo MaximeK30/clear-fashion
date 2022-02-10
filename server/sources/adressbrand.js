@@ -10,16 +10,16 @@ const {'v5': uuidv5} = require('uuid');
 const parse = data => {
   const $ = cheerio.load(data);
 
-  return $('.product-image-container')
+  return $('.left-block')
   .map((i, element) => {
 
 
-    const name = $(element)
-    .find('.product-image-container .right-block .product-name-container.versionmob .product-name')
+    const name = $(element).parent()
+    .find('.product-name')
     .attr('title');
 
     const link =$(element)
-    .find('.left-block .product-image-container a')
+    .find('.product-image-container a')
     .attr('href');
 
     const price =
@@ -28,16 +28,18 @@ const parse = data => {
       .text())
   ;
    const photo =  $(element)
-        .find('.left-block .product-image-container a img')
+        .find('.product-image-container a img')
         .attr('data-original');
 
 
     return {
      'brand': 'adresse',
       name,
+      price,
       link,
       photo,
       '_id': uuidv5(link, uuidv5.URL)
+     
     };
   })
   .get();
