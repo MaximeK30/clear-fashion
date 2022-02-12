@@ -10,7 +10,7 @@ const {'v5': uuidv5} = require('uuid');
 const parse = data => {
   const $ = cheerio.load(data);
 
-  return $('.left-block')
+  return $('.product_list.grid.row .left-block')
   .map((i, element) => {
 
 

@@ -10,21 +10,21 @@ const {'v5': uuidv5} = require('uuid');
 const parse = data => {
   const $ = cheerio.load(data);
 
-  return $('.products-grid .item .product-info')
+  return $('.page .category-products .products-grid .item ')
     .map((i, element) => {
       const name = $(element)
-        .find('.product-name a')
+        .find(' .product-name a')
         .attr('title')
         
         
         
       const price = parseInt(
         $(element)
-          .find('.price-box')
+          .find('.product-info .price-box')
           .text()
       );
       const link = $(element)
-        .find('.product-name a')
+        .find('.product-info .product-name a')
         .attr('href');
         
         
@@ -32,9 +32,9 @@ const parse = data => {
        
 
       return {'brand':'Montlimart',name, price,link,'photo': $(element)
-      .find('.productList-image img')
+      .find('.product-image a img')
       .attr('src'),
-    '_id': uuidv5(link, uuidv5.URL)};
+    };
     })
     .get();
 };

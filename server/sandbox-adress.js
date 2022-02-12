@@ -1,7 +1,7 @@
 /* eslint-disable no-console, no-process-exit */
 const adressbrand = require('./sources/adressbrand');
 
-async function sandbox (eshop = 'https://adresse.paris/583-manteaux-et-blousons') {
+async function sandbox (eshop = 'https://adresse.paris/630-toute-la-collection?p=2') {
   try {
     console.log(`🕵️‍♀️  browsing ${eshop} source`);
 
