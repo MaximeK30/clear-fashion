@@ -1,15 +1,18 @@
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
+const {'v5': uuidv5} = require('uuid');
+
 
 /**
  * Parse webpage e-shop
  * @param  {String} data - html response
  * @return {Array} products
  */
-const parse = data => {
-  const $ = cheerio.load(data);
+//const parse = data => {
+ // const $ = cheerio.load(data);
 
-  return $('.productList-container .productList')
+  //plus besoin des balises car on recupere un json grace à une api 
+ /* return $('.productList-container .productList')
     .map((i, element) => {
       const name = $(element)
         .find('.productList-title')
@@ -25,7 +28,7 @@ const parse = data => {
       return {name, price};
     })
     .get();
-};
+};*/
 
 /**
  * Scrape all the products for a given url page
@@ -34,13 +37,29 @@ const parse = data => {
  */
 module.exports.scrape = async url => {
   try {
+    //creation d'une liste de products 
+    
+    //Recupération de l'api 
     const response = await fetch(url);
 
     if (response.ok) {
-      const body = await response.text();
-
-      return parse(body);
-    }
+      const body = await response.json();
+      let productsList_Dedicated=[]
+      body.products.forEach((element) => {
+        // on souhaite que les hommes 
+        if(element.name != undefined && element["canonicalUri"].startsWith('men') )
+        {productsList_Dedicated.push({
+          brand: "dedicated",
+          name: element["name"],
+          price: parseFloat(element["price"].price),
+          link: "https://www.dedicatedbrand.com/en/" + element["canonicalUri"],
+          photo: element["image"][0],
+          _id: uuidv5("https://www.dedicatedbrand.com/en/" + element["canonicalUri"], uuidv5.URL)
+        })};
+    
+  });
+  return productsList_Dedicated;
+}
 
     console.error(response);
 
