@@ -31,6 +31,9 @@ const parse = data => {
         .find('.product-image-container a img')
         .attr('data-original');
 
+      
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
     return {
      'brand': 'adresse',
@@ -38,6 +41,7 @@ const parse = data => {
       price,
       link,
       photo,
+      'date':date,
       '_id': uuidv5(link, uuidv5.URL)
      
     };

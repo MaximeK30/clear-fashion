@@ -45,6 +45,8 @@ module.exports.scrape = async url => {
     if (response.ok) {
       const body = await response.json();
       let productsList_Dedicated=[]
+      var today = new Date();
+      var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
       body.products.forEach((element) => {
         // on souhaite que les hommes 
         if(element.name != undefined && element["canonicalUri"].startsWith('men') )
@@ -54,6 +56,7 @@ module.exports.scrape = async url => {
           price: parseFloat(element["price"].price),
           link: "https://www.dedicatedbrand.com/en/" + element["canonicalUri"],
           photo: element["image"][0],
+          'date':date,
           _id: uuidv5("https://www.dedicatedbrand.com/en/" + element["canonicalUri"], uuidv5.URL)
         })};
     

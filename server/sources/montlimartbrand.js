@@ -28,12 +28,14 @@ const parse = data => {
         .attr('href');
         
         
-    
+        
+      var today = new Date();
+      var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
        
 
       return {'brand':'Montlimart',name, price,link,'photo': $(element)
       .find('.product-image a img')
-      .attr('src'),
+      .attr('src'),'date':date
     };
     })
     .get();
