@@ -82,7 +82,7 @@ const renderProducts = products => {
           <strong>${product.price} €</strong>
         <div> 
           <label id="add" for="favorite-product">Add to favorite</label>
-          <input type="checkbox" onclick="checkFavorite('${product.uuid}')" ${product.favorite ? "checked" : ""}>
+          <input type="checkbox" id ='${product.uuid}' onclick="checkFavorite('${product.uuid}')" ${product.favorite ? "checked" : ""}>
           
         </div>
       </div>
@@ -236,6 +236,22 @@ if (brandSelected !="All brands")
   products=total_brands[brandSelected]
 }
 
+// To check the box in the  product main page if a product is in favorite
+if (button_click_favourite === false)
+{
+  favoriteProducts= new functionfavorite()
+  const Products = products.map(product => {
+    const found = favoriteProducts.find(fav => fav.uuid === product.uuid);
+    if(found) 
+    {
+      product.favorite = true;
+    }
+    return product;
+  });
+  products = Products;
+  
+}
+  
 
   renderPagination(pagination);
   renderProducts(products);
@@ -386,11 +402,21 @@ function reasonableprice()
 
 
 var button_click_favourite=false
+
  
 function favouritearticle()
-{ if (button_click_favourite==false){button_click_favourite=true}
+{ 
+  const btn = document.getElementById('favo');
+ 
+  if (button_click_favourite==false)
+  {
+    button_click_favourite=true
+    btn.style.backgroundColor = 'White'
+  }
 else button_click_favourite=false;
 {
+  
+  btn.style.backgroundColor = 'salmon';
   fetchProducts(parseInt(selectPage.value), parseInt(selectShow.value))
     .then(setCurrentProducts)
     .then(() => renderbis(currentProducts, currentPagination,'All brands'));
@@ -552,6 +578,8 @@ var set_products=[]
 
  function checkFavorite(product_id){
   favoriteProducts=JSON.parse(localStorage.getItem("my_fav"))
+  
+ 
   if (favoriteProducts==null)
   {
     favoriteProducts=[]
@@ -567,6 +595,11 @@ var set_products=[]
   if( isFavouriteProduct(product_fav)==false){
 
     favoriteProducts.push(product_fav);
+  }
+  else
+  {
+    favoriteProducts = favoriteProducts.filter(product => product.uuid != product_id);
+    alert("Already in your favourite products ! Click on the button My favourite")
   }
   
   // const unique BrandNames = new Set(brandNames);
