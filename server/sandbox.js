@@ -8,7 +8,6 @@ async function sandbox (eshop = 'https://www.dedicatedbrand.com/en/loadfilter?')
 
     const products = await dedicatedbrand.scrape(eshop);
 
-    
     fs.writeFileSync('Products_dedicated.json', JSON.stringify(products));
     console.log('done');
     process.exit(0);

@@ -10,6 +10,7 @@ const {'v5': uuidv5} = require('uuid');
 const parse = data => {
   const $ = cheerio.load(data);
 
+  
   return $('.page .category-products .products-grid .item ')
     .map((i, element) => {
       const name = $(element)
@@ -28,7 +29,7 @@ const parse = data => {
         .attr('href');
         
         
-        
+
       var today = new Date();
       var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
        

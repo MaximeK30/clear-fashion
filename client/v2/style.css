@@ -1,75 +1,93 @@
+header {
+  background-color: white;
+  background-image: url("https://img-3.journaldesfemmes.fr/-nieMai9jWQkTL2X3JXZpvaSt-c=/1500x/smart/ede7497c47cf4fa282a5f362d1ae2eab/ccmcms-jdf/21576209.png");
+  background-position:top;
+  background-repeat: no-repeat;
+  background-size: 500px;
+  line-height: 1;
+  padding: 13vw 2em;
+  text-align: top;
+  color: black;
+  font-size: 0em;
+  font-weight: 0;
+  text-align: center;
+        
+  }
+  body 
+  {
+    font-family: "HelveticaNow","Helvetica","sans-serif";
+    background: White;
+    background-position: center;
+    color: #555;
+    line-height: 1.5;
+    padding: 4em 1em;
+  }
 
-head {
-  margin: 0 auto;
-  max-width: 50em;
-  
-}
+  section {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 20px;
+    margin-bottom: 10px; 
+    
+    
+  }
 
-body 
-{
-  font-family: "HelveticaNow","Helvetica","sans-serif";
-  background: White;
-  background-position: center;
-  color: #555;
-  line-height: 1.5;
-  padding: 4em 1em;
-}
+  h2
+  {
+    font-size:xx-large;;
+  }
 
-
-
-
-section {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-bottom: 10px; 
-  
-  /*border: 1px solid #5D6063;*/
-}
-
-h2
-{
-  font-size:xx-large;;
-}
 
 #indicators {
 
-  
   float: left;                  
   width: 300px; 
   line-height: 1.5;
-  
-
+  border-right: 0.5px solid #5D6063;
+ 
 }
 
+#favs {
 
-
+  float: left;                  
+  width: 300px; 
+  line-height: 1.5;
+  border-right: 0.5px solid #5D6063;
+ 
+}
 
 #options { display: flex; flex-direction: nowrap; column-gap: 1em ; }
-
-#products,div { display: flex; flex-wrap: wrap; column-gap: 1em ; }
-
-#products,h2{
-  float:center;
-}
-#products {
-  float:center;
-}
-
-
 #options{
   
   background-color: rgb(161, 190, 197);
   background-position: bottom 50px;
   font-weight: bold;
   color: black;
+  border: 0.5px solid #5D6063;
   
 }
+
+#products,div{ display: flex; flex-wrap: wrap; column-gap: 1em  }
+
+
+
+
+
+.product{
+  text-align: center;
+  margin-bottom: 1em;
+  border: 2px solid rgb(161, 190, 197); padding: 10px; 
+ 
+  background-clip: content-box;
+  
+  
+}
+
+
 #products,span,div
 {
   font-weight: bold;
-  
   
 }
 
@@ -87,20 +105,7 @@ a {
 @import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500';
 
 
-header {
-background-color: white;
-background-image: url("https://img-3.journaldesfemmes.fr/-nieMai9jWQkTL2X3JXZpvaSt-c=/1500x/smart/ede7497c47cf4fa282a5f362d1ae2eab/ccmcms-jdf/21576209.png");
-background-position:top;
-background-repeat: no-repeat;
-background-size: 500px;
-line-height: 1;
-padding: 13vw 2em;
-text-align: top;
-}
-header {
-color: black;
-font-size: 0em;
-font-weight: 0;
-text-align: center;
-      
-}
+
+
+
+

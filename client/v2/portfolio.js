@@ -6,10 +6,12 @@ let currentProducts = [];
 let currentPagination = {};
 
 
+
 // inititiqte selectors
 const selectShow = document.querySelector('#show-select');
 const selectPage = document.querySelector('#page-select');
 const sectionProducts = document.querySelector('#products');
+const sectionFavs = document.querySelector('#favs');
 const spanNbProducts = document.querySelector('#nbProducts');
 const spanNbNewProducts = document.querySelector('#nbnewProducts');
 const selectBrand = document.querySelector('#brand-select');
@@ -68,9 +70,21 @@ const renderProducts = products => {
     .map(product => {
       return `
       <div class="product" id=${product.uuid}>
-        <span>${product.brand }</span>
-        <a href="${product.link}">${product.name}</a>
-        <span>${product.price}</span>
+        <div>
+          <span>Brand : </span>
+          <strong>${product.brand}</strong>
+        </div>
+        <div>
+          <span>Link : </span>
+          <a href="${product.link}" target="_blank">${product.name}</a>
+        </div>
+          <span>Price : </span>
+          <strong>${product.price} €</strong>
+        <div> 
+          <label id="add" for="favorite-product">Add to favorite</label>
+          <input type="checkbox" onclick="checkFavorite('${product.uuid}')" ${product.favorite ? "checked" : ""}>
+          
+        </div>
       </div>
     `;
     })
@@ -184,6 +198,12 @@ const renderbis = ( products,pagination,brandSelected)=>
     products=new functionreasonable(products)
   }
 
+  if (button_click_favourite ===true)
+  {
+    products=new functionfavorite()
+    
+  }
+
   let combobrand=['All brands']
   for ( var i=0 ; i< products.length;i++){
 
@@ -218,7 +238,7 @@ if (brandSelected !="All brands")
 
 
   renderPagination(pagination);
-  renderProducts(products)
+  renderProducts(products);
   renderIndicators(pagination);
   renderNewIndicators(functionreasonable(products));
   renderBrands(combobrand,brandSelected);
@@ -226,6 +246,7 @@ if (brandSelected !="All brands")
   renderp90(products);
   renderp95(products);
   renderreleasedate(products);
+ 
 
 }
 
@@ -362,6 +383,26 @@ function reasonableprice()
   }
 
 }
+
+
+var button_click_favourite=false
+ 
+function favouritearticle()
+{ if (button_click_favourite==false){button_click_favourite=true}
+else button_click_favourite=false;
+{
+  fetchProducts(parseInt(selectPage.value), parseInt(selectShow.value))
+    .then(setCurrentProducts)
+    .then(() => renderbis(currentProducts, currentPagination,'All brands'));
+  
+};}
+
+function functionfavorite()
+{
+  return JSON.parse(localStorage.getItem("my_fav"));
+}
+
+
 
 
 /**
@@ -505,20 +546,134 @@ function percentile(arr, p) {
  * Feature 13 - Save as favorite
  */
 
- function favourite(uuid)
- { const articles=[];
-   articles.push(uuid);
- console.table(articles)}
 
- var button_click_favourite=false
+var favoriteProducts=[]
+var set_products=[]
+
+ function checkFavorite(product_id){
+  favoriteProducts=JSON.parse(localStorage.getItem("my_fav"))
+  if (favoriteProducts==null)
+  {
+    favoriteProducts=[]
+  }
+
+  const product = currentProducts.find(product => {
+    return product.uuid === product_id;
+  });  
+  const product_fav = Object.assign({}, product);
+  product_fav.favorite = true;
+  console.log(product_fav);
+  
+  if( isFavouriteProduct(product_fav)==false){
+
+    favoriteProducts.push(product_fav);
+  }
+  
+  // const unique BrandNames = new Set(brandNames);
+  localStorage.setItem("my_fav", JSON.stringify(favoriteProducts)); 
+  console.log(JSON.parse(localStorage.getItem("my_fav")));
+  
+
+}
+
+function isFavouriteProduct(product){
+  var favourite = false;
+  for(var i in favoriteProducts){
+    if(product.uuid === favoriteProducts[i].uuid) 
+    {
+      favourite = true;
+    }
+    
+  }
+  return favourite;
+}
+
+function isInArray(needle, haystack) {
  
- function favouritearticle()
- { if (button_click_favourite==false){button_click_favourite=true}
- else button_click_favourite=false;
+ if (haystack==null)
  {
-   fetchProducts(currentPagination.currentPage, parseInt(selectShow.value))
-     .then(setCurrentProducts)
-     .then(() => renderbis(currentProducts, currentPagination,"No brand selected"));
- };}
+    return false;
+ }
+ else
+ {
+    var length = haystack.length;
+    for (var i = 0; i < length; i++) {
+    if (haystack[i] == needle)
+      return true;
+    }
+    return false;
+  }
+}
 
+
+
+
+/**
+ * Render list of products
+ * @param  {Array} favs
+ */
+ const renderfavourite = products => {
+  const fragment = document.createDocumentFragment();
+  const div = document.createElement('div');
+  const template = products
+    .map(product => {
+      return `
+      <div class="product" id=${product.uuid}>
+        <div>
+          <span>Brand : </span>
+          <strong>${product.brand}</strong>
+        </div>
+        <div>
+          <span>Link : </span>
+          <a href="${product.link}" target="_blank">${product.name}</a>
+        </div>
+          <span>Price : </span>
+          <strong>${product.price} €</strong>
+        
+      </div>
+      
+    `;
+    })
+    .join('');
+
+  div.innerHTML = template;
+  fragment.appendChild(div);
+  sectionFavs.innerHTML = '<h2>Favourite</h2>';
+  sectionFavs.appendChild(fragment);
+};
+
+
+
+
+
+//____________________________________________
+
+//let favoriteProducts=[]
+//let FavoriteChecked = false;
+//
+//var favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+//// add class 'fav' to each favorite
+//favorites.forEach(function(favorite) {
+//  document.getElementById(favorite).className = 'fav';
+//});
+//// register click event listener
+//document.querySelector('.li').addEventListener('click', function(e) {
+//  var id = e.target.id,
+//      item = e.target,
+//      index = favorites.indexOf(id);
+//  // return if target doesn't have an id (shouldn't happen)
+// 
+//  if (index == -1) {
+//    favorites.push(id);
+//    item.className = 'fav';
+//  // item is already favorite
+//  } else {
+//    favorites.splice(index, 1);
+//    item.className = '';
+//  }
+//  // store array in local storage
+//  localStorage.setItem('favorites', JSON.stringify(favorites));
+//});
+
+// local storage stores strings so we use JSON to stringify for storage and parse to get out of storage
 
