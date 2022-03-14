@@ -19,6 +19,12 @@ const uri = "mongodb+srv://root:root@cluster0.gap6f.mongodb.net/ClearFashion?ret
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const collection = client.db("ClearFashion").collection("Products");
 
+
+app.get('/', (request, response) => {
+  response.send({'ack': true});
+});
+
+
 app.get('/products', (request, response) => {
   client.connect( async (err) => {
     var id =request.params.id;
