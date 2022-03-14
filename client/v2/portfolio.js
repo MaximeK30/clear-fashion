@@ -21,8 +21,9 @@ const percentile90 = document.querySelector('#p90');
 const percentile95 = document.querySelector('#p95');
 const lastdate=document.querySelector('#lastreleaseddate');
 
-
-
+const btn = document.getElementById('favo');
+const btn1 = document.getElementById('rp');
+const btn2 = document.getElementById('rr');
 
 /**
  * Set global value
@@ -192,18 +193,45 @@ const renderbis = ( products,pagination,brandSelected)=>
   if (button_click_release===true)
   {
     products=new functionrelease(products)
+    btn2.style.backgroundColor = 'Salmon'
   }
   if (button_click_reasonable===true)
   {
     products=new functionreasonable(products)
+    btn1.style.backgroundColor = 'Salmon'
+
   }
 
   if (button_click_favourite ===true)
   {
     products=new functionfavorite()
+    btn.style.backgroundColor = 'salmon';
+    
     
   }
+  if (button_click_favourite === false)
+{
+  favoriteProducts= new functionfavorite()
+  const Products = products.map(product => {
+    const found = favoriteProducts.find(fav => fav.uuid === product.uuid);
+    if(found) 
+    {
+      product.favorite = true;
+    }
+    return product;
+  });
+  products = Products;
+  btn.style.backgroundColor = 'White'
+}
+if (button_click_favourite === true)
+{
+  products=products;
+}
 
+
+
+
+// To check the box in the  product main page if a product is in favorite
   let combobrand=['All brands']
   for ( var i=0 ; i< products.length;i++){
 
@@ -236,21 +264,7 @@ if (brandSelected !="All brands")
   products=total_brands[brandSelected]
 }
 
-// To check the box in the  product main page if a product is in favorite
-if (button_click_favourite === false)
-{
-  favoriteProducts= new functionfavorite()
-  const Products = products.map(product => {
-    const found = favoriteProducts.find(fav => fav.uuid === product.uuid);
-    if(found) 
-    {
-      product.favorite = true;
-    }
-    return product;
-  });
-  products = Products;
-  
-}
+
   
 
   renderPagination(pagination);
@@ -349,10 +363,12 @@ function recentrelease()
   if(button_click_release==false)
   {
     button_click_release=true;
+    btn2.style.backgroundColor = 'White'
     
   }
   else button_click_release=false ;
   {
+    btn2.style.backgroundColor = 'White'
     
     fetchProducts(parseInt(selectPage.value), parseInt(selectShow.value))
     .then(setCurrentProducts)
@@ -388,11 +404,12 @@ function reasonableprice()
   if(button_click_reasonable==false)
   {
     button_click_reasonable=true;
+    btn1.style.backgroundColor = 'White'
     
   }
   else button_click_reasonable=false ;
   {
-    
+    btn1.style.backgroundColor = 'White'
     fetchProducts(parseInt(selectPage.value), parseInt(selectShow.value))
     .then(setCurrentProducts)
     .then(() => renderbis(currentProducts, currentPagination,'All brands'));
@@ -406,17 +423,17 @@ var button_click_favourite=false
  
 function favouritearticle()
 { 
-  const btn = document.getElementById('favo');
+  
  
   if (button_click_favourite==false)
   {
     button_click_favourite=true
-    btn.style.backgroundColor = 'White'
+    
   }
 else button_click_favourite=false;
 {
   
-  btn.style.backgroundColor = 'salmon';
+  
   fetchProducts(parseInt(selectPage.value), parseInt(selectShow.value))
     .then(setCurrentProducts)
     .then(() => renderbis(currentProducts, currentPagination,'All brands'));

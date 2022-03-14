@@ -45,11 +45,16 @@ async function main() {
   await client.connect();
   console.log('Connected successfully to server');
   var fs=require('fs');
+  /*
   var data=fs.readFileSync('Products_adress.json', 'utf8');
   var words=JSON.parse(data);
   const insertResult = await  client.db("ClearFashion").collection("Products").insertMany(words);
   console.log('Inserted documents =>', insertResult);
-
+*/
+  var data_montlimard=fs.readFileSync('Products_Montlimards.json', 'utf8');
+  var words=JSON.parse(data_montlimard);
+  const insertResult_montlimard = await  client.db("ClearFashion").collection("Pull_Montlimart").insertMany(words);
+  console.log('Inserted documents =>', insertResult_montlimard);
 
   // the following code examples can be pasted here...
 

@@ -24,9 +24,9 @@ const parse = data => {
           .find('.product-info .price-box')
           .text()
       );
-      const link = $(element)
-        .find('.product-info .product-name a')
-        .attr('href');
+      const link = $(element).parent()
+      .find('.product-name a')
+      .attr('href');
         
         
 
@@ -36,7 +36,7 @@ const parse = data => {
 
       return {'brand':'Montlimart',name, price,link,'photo': $(element)
       .find('.product-image a img')
-      .attr('src'),'date':date
+      .attr('src'),'date':date,'_id': uuidv5(link, uuidv5.URL)
     };
     })
     .get();
