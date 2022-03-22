@@ -44,7 +44,9 @@ const setCurrentProducts = ({result, meta}) => {
 const fetchProducts = async (page = 1, size = 12) => {
   try {
     const response = await fetch(
-      `https://clear-fashion-api.vercel.app?page=${page}&size=${size}`
+      //`https://clear-fashion-api.vercel.app?page=${page}&size=${size}`
+      `https://server-eight-coral.vercel.app/products/find/?currentPage=${page}&pageLimit=${size}`
+      
     );
     const body = await response.json();
 
@@ -71,17 +73,18 @@ const renderProducts = products => {
     .map(product => {
       return `
       <div class="product" id=${product.uuid}>
+      <img class="fit-picture"
+      src="${product.photo}" height=200 width=200</img>
         <div>
           <span>Brand : </span>
-          <strong>${product.brand}</strong>
-        </div>
-        <div>
+          <strong>${product.brand}<br></strong>
           <span>Link : </span>
           <a href="${product.link}" target="_blank">${product.name}</a>
         </div>
+        <div> 
           <span>Price : </span>
           <strong>${product.price} €</strong>
-        <div> 
+        
           <label id="add" for="favorite-product">Add to favorite</label>
           <input type="checkbox" id ='${product.uuid}' onclick="checkFavorite('${product.uuid}')" ${product.favorite ? "checked" : ""}>
           
@@ -153,7 +156,7 @@ const renderp95 = p95 => {
 
 const renderreleasedate = release => {
   release=sortdatedesc(release);
-  const last_release_date = release[0].released;
+  const last_release_date = release[0].date;
   lastdate.innerHTML=last_release_date;
 };
 
@@ -190,6 +193,7 @@ const render = (products, pagination) => {
 //Creation of a new render with Brands 
 const renderbis = ( products,pagination,brandSelected)=>
 {
+  
   if (button_click_release===true)
   {
     products=new functionrelease(products)
@@ -209,11 +213,12 @@ const renderbis = ( products,pagination,brandSelected)=>
     
     
   }
+
   if (button_click_favourite === false)
 {
   favoriteProducts= new functionfavorite()
   const Products = products.map(product => {
-    const found = favoriteProducts.find(fav => fav.uuid === product.uuid);
+    const found = Array.isArray(favoriteProducts) ? favoriteProducts.find(fav => fav.uuid === product.uuid) : false;
     if(found) 
     {
       product.favorite = true;
@@ -345,7 +350,7 @@ function functionrelease (products)
   const ArraynewProducts=[];
   for ( var i =0; i <products.length;i++)
   {
-    if((Math.abs(new Date().getTime() - new Date(products[i].released).getTime())/(24*60*60*1000) < 14))
+    if((Math.abs(new Date().getTime() - new Date(products[i].date).getTime())/(24*60*60*1000) < 14))
     {
       ArraynewProducts.push(products[i]);
     }
@@ -443,6 +448,7 @@ else button_click_favourite=false;
 function functionfavorite()
 {
   return JSON.parse(localStorage.getItem("my_fav"));
+  
 }
 
 
@@ -477,7 +483,7 @@ function sortdateasc(products)
 {
   var sort_bydate=[]
   sort_bydate=products.sort(function(a,b){
-    return Date.parse(a.released)-Date.parse(b.released);
+    return Date.parse(a.date)-Date.parse(b.date);
   })
   return sort_bydate;
 
@@ -486,7 +492,7 @@ function sortdatedesc(products)
 {
   var sort_bydate=[]
   sort_bydate=products.sort(function(a,b){
-    return Date.parse(b.released)-Date.parse(a.released);
+    return Date.parse(b.date)-Date.parse(a.date);
   })
   return sort_bydate;
 
@@ -596,8 +602,8 @@ var set_products=[]
  function checkFavorite(product_id){
   favoriteProducts=JSON.parse(localStorage.getItem("my_fav"))
   
- 
-  if (favoriteProducts==null)
+  console.log(favoriteProducts);
+  if (favoriteProducts===null)
   {
     favoriteProducts=[]
   }
@@ -616,7 +622,7 @@ var set_products=[]
   else
   {
     favoriteProducts = favoriteProducts.filter(product => product.uuid != product_id);
-    alert("Already in your favourite products ! Click on the button My favourite")
+    alert("You are going to remove this article from your favourite article !")
   }
   
   // const unique BrandNames = new Set(brandNames);

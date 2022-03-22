@@ -42,7 +42,8 @@ const parse = data => {
       link,
       photo,
       'date':date,
-      '_id': uuidv5(link, uuidv5.URL)
+      '_id': uuidv5(link, uuidv5.URL),
+      'uuid': uuidv5(link, uuidv5.URL)
      
     };
   })

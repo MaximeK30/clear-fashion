@@ -1,62 +1,42 @@
 /* eslint-disable no-console, no-process-exit */
 const montlimartbrand = require('./sources/montlimartbrand');
 const fs = require('fs');
+require("dotenv").config();
 
 
-async function sandbox (eshop = `https://www.montlimart.com/polos-t-shirts.html?`) {
+async function sandbox (eshop = `https://www.montlimart.com/polos-t-shirts.html?limit=all`) {
   try {
-    let t=true;
-    let i=0;
-    let premier= {name:"nnbkj"};
-    console.log(premier.name);
-    let final_products=[];
-    while(t==true)
-    {
-
-      i+=1;
-      let lien=eshop+'?p='+i;
-      
-      console.log(`🕵️‍♀️  browsing ${lien} source`);
-      const products = await montlimartbrand.scrape(lien);
-      products.forEach((element, index) => {
-        if (element.name === 'Carte Cadeau Montlimart' || element.name == undefined ) {
-          products.splice(index,1);
-        }
-
-      });
-      console.log(products[1])
-      if (premier.name!=products[1].name)
-      {
-        console.log('done');
-        final_products.push(products);
-        
-        
-      }
-      else
-      {
-          t=false;
-      }
-      
-
-      premier= products[1];
-    }
-
-
-    final_products=final_products.flat();
     
-    const { MongoClient } = require('mongodb');
-    const uri = "mongodb+srv://root:root@cluster0.gap6f.mongodb.net/ClearFashion?retryWrites=true&writeConcern=majority";
-    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-    client.connect( async (err) => {
-    const collection = client.db("ClearFashion").collection("Pull_Montlimart");
-    //console.log(collection)
+    
   
-    const result = await collection.insertMany(final_products);
-    console.log(result);
-    // perform actions on the collection object
-    client.close();
-    });
+    let lien=eshop+'/?limit=all';
+    final_products=[];
+    console.log(`🕵️‍♀️  browsing ${lien} source`);
+    const products = await montlimartbrand.scrape(lien);
+    final_products=products.flat();
+  
+    
 
+    const { MongoClient } = require('mongodb');
+    uri=process.env.MONGODB_URI;
+    const client = new MongoClient(uri);
+
+    
+      
+    await client.connect();
+    const database = client.db("ClearFashion");
+    const foods = database.collection("Product_final");
+    // create an array of documents to insert
+    const docs = final_products;
+    // this option prevents additional documents from being inserted if one fails
+    const options = { ordered: true };
+    const result = await foods.insertMany(docs, options);
+    console.log(`${result.insertedCount} documents were inserted`);
+  
+    await client.close();
+      
+    
+    
 
     
 
@@ -65,25 +45,6 @@ async function sandbox (eshop = `https://www.montlimart.com/polos-t-shirts.html?
     fs.writeFileSync('Products_Montlimards.json', JSON.stringify(final_products));
     process.exit(0);
     
-
-    
-
-    
-
-
-
-    //enlever les cartes cadeaux et les undefined (bannieres)
-
-    
-
-    
-
-
-    //Pour enregistrer les dates mais problème avec local storage car coté server d'apres ce que j'ai compris 
-
-    //const  product_Montlimard = new Set(productList_Montlimart);
-
-    //localStorage.setItem=("montlimard_products" ,JSON.stringify(product_Montlimard))
 
     
 

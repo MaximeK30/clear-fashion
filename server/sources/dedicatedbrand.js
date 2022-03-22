@@ -57,7 +57,8 @@ module.exports.scrape = async url => {
           link: "https://www.dedicatedbrand.com/en/" + element["canonicalUri"],
           photo: element["image"][0],
           'date':date,
-          _id: uuidv5("https://www.dedicatedbrand.com/en/" + element["canonicalUri"], uuidv5.URL)
+          '_id': uuidv5("https://www.dedicatedbrand.com/en/" + element["canonicalUri"], uuidv5.URL),
+          "uuid": uuidv5("https://www.dedicatedbrand.com/en/" + element["canonicalUri"], uuidv5.URL)
         })};
     
   });

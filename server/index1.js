@@ -7,13 +7,16 @@
 //
 //console.log(db);
 
+const dotenv = require("dotenv").config();
+
+
 const { contents } = require('cheerio/lib/api/traversing');
 const fs = require('fs');
 const { MongoClient } = require('mongodb');
-const uri = "mongodb+srv://root:root@cluster0.gap6f.mongodb.net/ClearFashion?retryWrites=true&writeConcern=majority";
+const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect( async (err) => {
-  const collection = client.db("ClearFashion").collection("Products");
+  const collection = client.db("ClearFashion").collection("Product");
   //console.log(collection)
   
   const test = await collection.find({"age":{$ne:null}},{"age":1}).toArray();

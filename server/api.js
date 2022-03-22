@@ -1,8 +1,11 @@
 const cors = require('cors');
 const express = require('express');
 const helmet = require('helmet');
-
+require("dotenv").config();
 const PORT = 8092;
+
+
+
 
 const app = express();
 
@@ -15,9 +18,10 @@ app.use(helmet());
 app.options('*', cors());
 const fs = require('fs');
 const { MongoClient } = require('mongodb');
-const uri = "mongodb+srv://root:root@cluster0.gap6f.mongodb.net/ClearFashion?retryWrites=true&writeConcern=majority";
+const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-const collection = client.db("ClearFashion").collection("Products");
+const collection = client.db("ClearFashion").collection("Product_final");
+
 
 
 app.get('/', (request, response) => {
@@ -29,8 +33,10 @@ app.get('/products', (request, response) => {
   client.connect( async (err) => {
     var id =request.params.id;
     console.log("connected")
+    
     const test = await collection.find({}).toArray();
     //console.log(test);
+    
     response.send(test);
     
   });
@@ -59,6 +65,33 @@ app.get('/products/search', (request, response) => {
 
     console.log(test);
     response.send(test);
+    
+  });
+  
+});
+
+app.get('/products/find', (request, response) => {
+  client.connect( async (err) => {
+    
+    const { calculateLimitAndOffset, paginate } = require('paginate-info')
+    let currentPage = parseInt(request.query.currentPage);
+    let pageLimit = parseInt(request.query.pageLimit);
+    console.log(request.query);
+    console.log(currentPage);
+    console.log(pageLimit);
+    console.log("****")
+    const count  = await collection.estimatedDocumentCount();
+    const { limit, offset } = calculateLimitAndOffset(currentPage, pageLimit);
+    
+    const rows = await collection.find({}).skip(offset)
+    .limit(limit).toArray();
+    const meta = paginate(currentPage, count, rows,pageLimit);
+    console.log(meta);
+    
+    const result={"success":true,"data":{"result":rows,"meta":meta}}   
+    
+  
+    response.send(result);
     
   });
   

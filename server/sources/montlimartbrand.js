@@ -9,22 +9,17 @@ const {'v5': uuidv5} = require('uuid');
  */
 const parse = data => {
   const $ = cheerio.load(data);
-
-  
-  return $('.page .category-products .products-grid .item ')
+  return $('.category-products .item')
     .map((i, element) => {
-      const name = $(element)
-        .find(' .product-name a')
-        .attr('title')
-        
-        
+      if (isNaN(parseInt($(element).find('.product-info .price-box').text()))===false)
+      {
         
       const price = parseInt(
         $(element)
           .find('.product-info .price-box')
           .text()
       );
-      const link = $(element).parent()
+      const link = $(element)
       .find('.product-name a')
       .attr('href');
         
@@ -34,10 +29,11 @@ const parse = data => {
       var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
        
 
-      return {'brand':'Montlimart',name, price,link,'photo': $(element)
+      return {'brand':'Montlimart',"name": $(element)
+      .find('.product-info .product-name').text().trim(), price,link,'photo': $(element)
       .find('.product-image a img')
-      .attr('src'),'date':date,'_id': uuidv5(link, uuidv5.URL)
-    };
+      .attr('src'),'date':date,'_id': uuidv5(link, uuidv5.URL),'uuid': uuidv5(link, uuidv5.URL)
+    };}
     })
     .get();
 };
